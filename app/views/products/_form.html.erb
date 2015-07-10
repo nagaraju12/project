@@ -1,0 +1,50 @@
+
+ <%= form_for([@product], :html => { :multipart => true, :class => "da-form" }) do |f| %>
+
+  <% if @product.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+
+      <ul>
+      <% @product.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+  <%= select_tag :category_id, options_for_select([["Select Category", ""]] + Category.all.map {|c| [c.title, c.id]}), :onchange => 'select_file(this.value)' %>
+</div>
+<div class="load_subcat"></div>
+<div class="visible-md visible-lg">
+ <%= f.label :video_file %>
+  <%= f.file_field :video_file, :style => "float: left;" %>
+  </div><br/>
+ <div class="field">
+    <%= f.label :photo %><br>
+    <%= f.file_field :photo %>
+  </div>
+ 
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :price %><br> 
+    <%= f.text_field :price %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+<script>
+  function select_file(val){
+    $.ajax({
+      url: "/products/load_subcat?category_id=" + val
+  });
+  }
+  </script>
