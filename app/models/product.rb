@@ -1,6 +1,7 @@
 class Product < ActiveRecord::Base
 		 belongs_to :category
 		 belongs_to :sub_category
+	has_many :pictures, :dependent => :destroy
 		 has_attached_file :photo, :styles => {  :thumb => "600x600#", :medium => "300x300#", :small => "160x160#"}
     has_attached_file :video_file
     validates_uniqueness_of :title

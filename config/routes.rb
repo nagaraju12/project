@@ -10,6 +10,7 @@ resources :products do
     resources :categories do
       resources :sub_categories
     end
+    
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
